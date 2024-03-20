@@ -20,6 +20,7 @@ func main() {
 	g.GET("/", listGems);
 	g.GET("/:id", listGem);
 	g.POST("/", createGem);
+	g.PUT("/:id", updateGem);
 
 	// Start Server
 	e.Logger.Fatal(e.Start(":8080"));

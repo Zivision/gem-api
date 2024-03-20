@@ -59,3 +59,21 @@ func createGem(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]string{ "Message": "Gemstone added"})
 }
+
+/*
+ * Update gem PUT
+ */
+func updateGem(c echo.Context) error {
+	lock.Lock();
+	defer lock.Unlock();
+
+	g := new(Gemstone);
+	if err := c.Bind(g); err != nil { return err }
+	id, _ := strconv.Atoi(c.Param("id"));
+
+	gems[id].Name = g.Name;
+	gems[id].Hardness = g.Hardness;
+	gems[id].Color = g.Color;
+
+	return c.JSON(http.StatusOK, map[string]string{ "Message": "Gemstone updated"});
+}
