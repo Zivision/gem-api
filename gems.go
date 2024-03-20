@@ -77,3 +77,14 @@ func updateGem(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]string{ "Message": "Gemstone updated"});
 }
+
+/*
+ * Delete gem DELETE
+ */
+func deleteGem(c echo.Context) error {
+	lock.Lock();
+	defer lock.Unlock();
+	id, _ := strconv.Atoi(c.Param("id"));
+	delete(gems, id);
+	return c.NoContent(http.StatusNoContent);
+}
